@@ -22,7 +22,6 @@ for line in data:
         elif p1[0]<p2[0]:
             temp_list= [(i, p1[1]) for i in  range(p1[0], p2[0]+1)]
     elif abs(p1[0]-p2[0]) == abs(p1[1]-p2[1]):                                              #Diagonal
-        print('x',p1,p2)
         if p1[0]<p2[0]:                                                                     #aufsteigend
             x1=p1[0]
             x2=p2[0]
@@ -36,10 +35,8 @@ for line in data:
         
         if y1<y2:
             temp_list= [(i, j) for i, j in zip(range(x1, x2+1), range(y1, y2+1))]           #aufsteigend
-        else:                                                                                #absteigend
+        else:                                                                               #absteigend
             temp_list= [(i, j) for i, j in zip(range(x1, x2+1), range(y1, y2-1,-1))]
-
-        print(temp_list)
 
     if p1[0]>max_x: max_x=p1[0]
     if p1[1]>max_y: max_y=p1[1]
@@ -61,20 +58,3 @@ field2[field >= 2] = 1
 
 print(field)
 print(field2.sum())
-
-
-'''    elif abs(p1[0]-p1[1]) - abs(p2[0]-p2[1])<0.1:
-        print(p1,p2)
-        if p1[0]>=p2[0]:
-            temp_list= [(i, j) for i, j in zip(range(p2[0], p1[0]+1), range(p2[1], p1[1]+1))]
-        elif p1[0]<p2[0]:
-            temp_list= [(i, j) for i,j in  zip(range(p1[0], p2[0]+1), range(p1[1], p2[1]+1))]
-        print(temp_list)
-    elif abs(p2[0]-p1[1]) - abs(p1[1]-p2[1]) <0.1:
-        if p1[0]<p2[0]:
-            temp_list= [(i, j) for i, j in zip(range(p1[0], p2[0]+1), range(p1[1], p2[1]-1,-1))]
-        elif p1[0]>=p2[0]:
-            temp_list= [(i, j) for i, j in zip(range(p1[0], p2[0]-1,-1), range(p1[1], p2[1]+1))]
-    else:
-        pass'''
-    
