@@ -19,9 +19,6 @@ for line in data:
         info=line.split(',')
         coordinates.append([int(info[0]), int(info[1])])
 
-
-#print(coordinates)
-print(instructions)
 max_x=0
 max_y=0
 
@@ -34,7 +31,6 @@ for point in coordinates:
 
 
 paper= np.zeros((max_y+1, max_x+1))
-print(paper.shape)
 for point in coordinates:
     paper[point[1],point[0]]=1
 
