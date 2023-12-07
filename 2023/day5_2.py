@@ -1,7 +1,5 @@
 import time
 from tqdm import tqdm
-import numpy as np
-
 
 start_time = time.time()
 with open("2023/inputs/day5_1.txt") as file:
