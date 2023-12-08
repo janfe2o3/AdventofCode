@@ -1,8 +1,8 @@
 import time
-from tqdm import tqdm
+#from tqdm import tqdm
 
 start_time = time.time()
-with open("2023/inputs/day7_1.txt") as file:
+with open("inputs/day7_1.txt") as file:
     data=file.readlines()
 data=[x.strip() for x in data]
 data = [(x.split(" ")[0], int(x.split(" ")[1])) for x in data]
@@ -22,17 +22,28 @@ def five_of_a_kind(e):
 
 def four_of_a_kind(e):
     dict1 = {r:e.count(r) for r in set(e)}
+    dict2= dict1.copy()
+    if "J" in dict2:
+        del dict2["J"]
     if 4 in dict1.values():
+        print(1)
         return True
     elif 3 in dict1.values()and "J" in e:
+        print(2)
         return True
-    elif 2 in dict1.values() and e.count("J")==2:
+    elif 2 in dict2.values() and e.count("J")==2:
+        print(dict1)
+        print(3)
         return True
+    
     else:
         return False
     
 def full_house(e):
     dict1 = {r:e.count(r) for r in set(e)}
+    dict2=dict1.copy()
+    if "J" in dict2:
+        del dict2["J"]
     sorted_values= sorted(dict1.values())
     if 3 in dict1.values() and 2 in dict1.values():
         return True
@@ -40,7 +51,7 @@ def full_house(e):
         return True
     elif 3 in dict1.values() and "J" in e:
         return True
-    elif 2 in dict1.values() and e.count("J")==2:
+    elif 2 in dict2.values() and e.count("J")==2:
         return True   
     else:
         return False
@@ -59,11 +70,16 @@ def three_of_a_kind(e):
 def two_pair(e):
     dict1 = {r:e.count(r) for r in set(e)}
     sorted_values= sorted(dict1.values())
+    dict2=dict1.copy()
+    if "J" in dict2:
+        del dict2["J"]
     if [2,2]==sorted_values[-2:]:
         return True
-    elif 2 in dict1.values() and "J" in e:
+    elif 2 in dict2.values() and "J" in e:
         return True
     elif e.count("J")==2:
+        return True
+    elif e.count("J")==3:
         return True
     else:
         return False
@@ -94,10 +110,10 @@ def check_high_card(e1, e2):
         else:
             continue
         
-def check(e1, e2):
+def check(e1, e2):  #e1<e2
     a1= create_array(e1)
     a2= create_array(e2)
-    #print(a1, a2)
+    print(a1, a2)
     for i in range(len(a1)):
         if a1[i]==True and a2[i]==False:
             return False
@@ -107,7 +123,7 @@ def check(e1, e2):
             return check_high_card(e1, e2)  
     return check_high_card(e1, e2)
 
-#check("QQQJA","KTJJT")
+#print(check("JJJ45","J2345"))
 #exit()
 def quicksort(arr):
     if len(arr) <= 1:
