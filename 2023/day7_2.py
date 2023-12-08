@@ -2,7 +2,7 @@ import time
 #from tqdm import tqdm
 
 start_time = time.time()
-with open("inputs/day7_1.txt") as file:
+with open("2023/inputs/day7_1.txt") as file:
     data=file.readlines()
 data=[x.strip() for x in data]
 data = [(x.split(" ")[0], int(x.split(" ")[1])) for x in data]
@@ -26,14 +26,10 @@ def four_of_a_kind(e):
     if "J" in dict2:
         del dict2["J"]
     if 4 in dict1.values():
-        print(1)
         return True
     elif 3 in dict1.values()and "J" in e:
-        print(2)
         return True
     elif 2 in dict2.values() and e.count("J")==2:
-        print(dict1)
-        print(3)
         return True
     
     else:
@@ -113,7 +109,6 @@ def check_high_card(e1, e2):
 def check(e1, e2):  #e1<e2
     a1= create_array(e1)
     a2= create_array(e2)
-    print(a1, a2)
     for i in range(len(a1)):
         if a1[i]==True and a2[i]==False:
             return False
