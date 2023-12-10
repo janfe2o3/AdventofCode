@@ -54,7 +54,6 @@ for x,y  in [[-1, 0] ,[1, 0], [0,-1], [0,1]]:
                                         "outgoing": out
                                         }
 
-print(left_dict, right_dict)
 
 def find_next(d, counter, data):
     d[counter+1]={}
@@ -75,14 +74,35 @@ counter=1
 while True:
     left_dict=find_next(left_dict, counter, data)
     right_dict=find_next(right_dict, counter, data)
+    #print(left_dict[counter]["current"],right_dict[counter]["current"])
     counter+=1
     if right_dict[counter]["current"]==left_dict[counter]["current"]:
         break
     #if counter==9:
     #    break
 
-print(counter)
-#print(left_dict)
+
+
+points=[(s_pos.x, s_pos.y)]
+for i, x in enumerate(left_dict):
+    p1=  (left_dict[i+1]["current"].x, left_dict[i+1]["current"].y) 
+    p2=  (right_dict[i+1]["current"].x, right_dict[i+1]["current"].y) 
+    points.append(p1)
+    points.append(p2)
+
+points=list(set(points))
+
+d={}
+#sort by line
+for point in points:
+    if point[1] in d:
+        d[point[1]].append(point[0])
+    else:
+        d[point[1]]=[point[0]]
+
+for key in d:
+    d[key].sort()
+print(d)
+    
 
 print("--- %s seconds ---" % (time.time() - start_time))
-
