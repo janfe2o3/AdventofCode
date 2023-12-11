@@ -103,6 +103,37 @@ for point in points:
 for key in d:
     d[key].sort()
 print(d)
-    
+
+count=0
+
+for y, line in enumerate(data):
+    if y in d:
+        mode=0
+        line_check=False
+        for x, char in enumerate(line):
+            if x in d[y]:
+                if not line_check:
+                    mode+=1
+                    line_check=True
+            else:
+                print("xx", x, line_check)
+                if line_check:
+                    line_check==False
+                    print("yy", x)
+                    if y-1 in d:
+                        mode+=1
+                    else:
+                        print("x")
+                        mode-=1
+                if mode%2==1:
+                    count+=1
+
+        
+
+
+print(count)
+            
+
+        
 
 print("--- %s seconds ---" % (time.time() - start_time))
