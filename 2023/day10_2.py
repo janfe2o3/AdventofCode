@@ -1,5 +1,5 @@
 import time
-#from tqdm import tqdm
+from tqdm import tqdm
 import numpy as np
 from collections import namedtuple
 
@@ -11,14 +11,14 @@ with open("2023/inputs/day10_1.txt") as file:
     data=file.readlines()
 data=[x.strip() for x in data]
 
-print(data)
+#print(data)
 
 for y, line in enumerate(data):
     for x, letter in enumerate(line):
         if letter=="S":
             s_pos=Point(x,y)
 
-print("starting pos ",s_pos)
+#print("starting pos ",s_pos)
 
 pipe_map= {"|": ((0,-1), (0,1)),
            "-": ((-1,0), (1,0)),
@@ -88,52 +88,35 @@ for i, x in enumerate(left_dict):
     p1=  (left_dict[i+1]["current"].x, left_dict[i+1]["current"].y) 
     p2=  (right_dict[i+1]["current"].x, right_dict[i+1]["current"].y) 
     points.append(p1)
-    points.append(p2)
+    points.insert(0,p2)
+points=points[1:]
+#points=list(set(points))
 
-points=list(set(points))
+#print(points)
+def is_point_inside_pipes(x, y, points):
+    n = len(points)
+    inside = False
+    p1x, p1y = points[0]
+    for i in range(n + 1):
+        p2x, p2y = points[i % n]
+        if y > min(p1y, p2y) and y <= max(p1y, p2y) and x <= max(p1x, p2x):
+            if p1y != p2y:
+                xinters = (y - p1y) * (p2x - p1x) / (p2y - p1y) + p1x
+                if p1x == p2x or x <= xinters:
+                    inside = not inside
+        p1x, p1y = p2x, p2y
 
-d={}
-#sort by line
-for point in points:
-    if point[1] in d:
-        d[point[1]].append(point[0])
-    else:
-        d[point[1]]=[point[0]]
+    return inside
 
-for key in d:
-    d[key].sort()
-print(d)
+point=0
+for y, line in tqdm(enumerate(data)):
+    for x, char in enumerate(line):
+        if is_point_inside_pipes(x,y, points):
+            if (x,y) not in points:
+                #print(x,y)
+                point+=1
 
-count=0
+print(point)
 
-for y, line in enumerate(data):
-    if y in d:
-        mode=0
-        line_check=False
-        for x, char in enumerate(line):
-            if x in d[y]:
-                if not line_check:
-                    mode+=1
-                    line_check=True
-            else:
-                print("xx", x, line_check)
-                if line_check:
-                    line_check==False
-                    print("yy", x)
-                    if y-1 in d:
-                        mode+=1
-                    else:
-                        print("x")
-                        mode-=1
-                if mode%2==1:
-                    count+=1
-
-        
-
-
-print(count)
-            
-
-        
 
 print("--- %s seconds ---" % (time.time() - start_time))
